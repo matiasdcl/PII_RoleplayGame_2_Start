@@ -1,6 +1,6 @@
 namespace Ucu.Poo.RoleplayGame;
 
-public class Shield: IItem, IDefensa
+public class Shield: IItem, IDefenseItem
 {
     public int DefenseValue
     {

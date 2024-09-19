@@ -1,6 +1,6 @@
 namespace Ucu.Poo.RoleplayGame;
 
-public interface IDefensa
+public interface IAtackItem
 {
     
 }
