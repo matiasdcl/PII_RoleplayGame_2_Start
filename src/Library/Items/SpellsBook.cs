@@ -1,6 +1,6 @@
 namespace Ucu.Poo.RoleplayGame;
 
-public class SpellsBook: IItem, IAtackItem, IDefenseItem
+public class SpellsBook: IItem, IAttackItem, IDefenseItem
 {
     public Spell[] Spells { get; set; }
     

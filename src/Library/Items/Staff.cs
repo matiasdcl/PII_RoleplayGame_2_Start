@@ -1,6 +1,6 @@
 namespace Ucu.Poo.RoleplayGame;
 
-public class Staff: IItem, IDefenseItem, IAtackItem
+public class Staff: IItem, IDefenseItem, IAttackItem
 {
     public int AttackValue 
     {
