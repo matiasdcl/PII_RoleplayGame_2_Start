@@ -1,6 +1,6 @@
 namespace Ucu.Poo.RoleplayGame;
 
-public class Archer
+public class Archer: ICharacter
 {
     private int health = 100;
 
