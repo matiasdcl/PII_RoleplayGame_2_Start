@@ -2,6 +2,8 @@ namespace Ucu.Poo.RoleplayGame;
 
 public class SpellsBook: IItem, IAttackItem, IDefenseItem
 {
+    public string Name{get; set;}
+    public bool Magic{get ; set;}
     public Spell[] Spells { get; set; }
     
     public int AttackValue
@@ -28,5 +30,6 @@ public class SpellsBook: IItem, IAttackItem, IDefenseItem
             }
             return value;
         }
+        set{}
     }
 }
