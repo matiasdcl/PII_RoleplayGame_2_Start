@@ -82,11 +82,11 @@ public class Knight: ICharacter
         this.items.Add(item);
         if (item is IAttackItem)
         {
-            this.attackValue += item.GetAttackValue();
+            this.attackValue += item.AttackValue();
         }
         if (item is IDefenseItem)
         {
-            this.defenseValue += item.GetDefenseValue();
+            this.defenseValue += item.DefenseValue();
         }
     }
     
@@ -97,11 +97,11 @@ public class Knight: ICharacter
             this.items.Remove(item);
             if (item is IAttackItem)
             {
-                this.attackValue -= item.GetAttackValue();
+                this.attackValue -= item.AttackValue();
             }
             if (item is IDefenseItem)
             {
-                this.defenseValue -= item.GetDefenseValue();
+                this.defenseValue -= item.DefenseValue();
             }
         }
         else
@@ -113,7 +113,7 @@ public class Knight: ICharacter
     
     public void Attack(ICharacter target)
     {
-        target.Health -= this.AttackValue;
+        target.Health -= this.AttackValue - target.DefenseValue;
     }
 
     public void Cure()

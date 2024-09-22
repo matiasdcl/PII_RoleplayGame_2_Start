@@ -27,13 +27,13 @@ public class Archer: ICharacter
     public string Name
     {
         get { return this.name;}
-        set { name = value; }
+        private set { name = value; }
     }
 
     public bool UsesMagic
     {
         get { return this.usesMagic; }
-        set { usesMagic = value; }
+        private set { usesMagic = value; }
     }
     
     public int AttackValue
@@ -64,15 +64,10 @@ public class Archer: ICharacter
         }
     }
 
-    public int GetHealth()
-    {
-        return this.Health;
-    }
-
     public List<IItem> Items
     {
         get { return this.items; }
-        set { this.items = value; }
+        private set { this.items = value; }
     }
 
     public void EquipItem(IItem item)
@@ -80,11 +75,11 @@ public class Archer: ICharacter
         this.items.Add(item);
         if (item is IAttackItem)
         {
-            this.attackValue += item.GetAttackValue();
+            this.attackValue += item.AttackValue();
         }
         if (item is IDefenseItem)
         {
-            this.defenseValue += item.GetDefenseValue();
+            this.defenseValue += item.DefenseValue();
         }
     }
     
@@ -95,11 +90,11 @@ public class Archer: ICharacter
             this.items.Remove(item);
             if (item is IAttackItem)
             {
-                this.attackValue -= item.GetAttackValue();
+                this.attackValue -= item.AttackValue();
             }
             if (item is IDefenseItem)
             {
-                this.defenseValue -= item.GetDefenseValue();
+                this.defenseValue -= item.DefenseValue();
             }
         }
         else
@@ -111,7 +106,7 @@ public class Archer: ICharacter
     
     public void Attack(ICharacter target)
     {
-        target.Health -= this.AttackValue;
+        target.Health -= this.AttackValue - target.DefenseValue;
     }
 
     public void Cure()
