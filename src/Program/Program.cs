@@ -1,7 +1,7 @@
 ﻿using Ucu.Poo.RoleplayGame;
 
 SpellsBook book = new SpellsBook();
-book.Spells = new Spell[]{ new Spell() };
+book.Spells = new ISpell[]{ new LightningBolt() };
 
 Wizard gandalf = new Wizard("Gandalf");
 gandalf.Staff = new Staff();

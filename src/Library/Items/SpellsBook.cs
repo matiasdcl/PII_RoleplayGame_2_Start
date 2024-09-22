@@ -2,15 +2,15 @@ namespace Ucu.Poo.RoleplayGame;
 
 public class SpellsBook: IItem, IAttackItem, IDefenseItem
 {
-    public Spell[] Spells { get; set; }
-    
+    public ISpell[] Spells{ get;  set; }
+
     public int AttackValue
     {
         get
         {
             int value = 0;
-            foreach (Spell spell in this.Spells)
-            {
+            foreach (IAttackSpell spell in this.Spells)
+            { 
                 value += spell.AttackValue;
             }
             return value;
@@ -22,7 +22,7 @@ public class SpellsBook: IItem, IAttackItem, IDefenseItem
         get
         {
             int value = 0;
-            foreach (Spell spell in this.Spells)
+            foreach (IDefenseSpell spell in this.Spells)
             {
                 value += spell.DefenseValue;
             }
