@@ -4,6 +4,11 @@ public class MirrorForce: ISpell, IspellLibro
 {
     public string Name { get; }
     
+    public MirrorForce()
+    {
+        Name = "Mirror Force";
+    }
+    
     public int AttackValue
     {
         get

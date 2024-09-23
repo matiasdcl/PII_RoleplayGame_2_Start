@@ -7,7 +7,7 @@ public class SpellsBook: IItem, IAttackItem, IDefenseItem
     private bool magic;
     private int attackValue;
     private int defenseValue;
-    private List<IspellLibro> spells { get; }
+    public List<IspellLibro> spells { get; }
     public string Name
     {
         get { return this.name; }
@@ -28,7 +28,6 @@ public class SpellsBook: IItem, IAttackItem, IDefenseItem
         spells = new List<IspellLibro>();
         AttackValue = 0;
         DefenseValue = 0;
-
     }
 
     public int AttackValue
@@ -63,5 +62,10 @@ public class SpellsBook: IItem, IAttackItem, IDefenseItem
         {
             this.defenseValue = value;
         }
+    }
+
+    public void AddSpell(IspellLibro spell)
+    {
+        spells.Add(spell);
     }
 }

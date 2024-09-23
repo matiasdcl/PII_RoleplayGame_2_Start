@@ -4,6 +4,11 @@ public class LightningBolt: ISpell, IspellLibro
 {
     public string Name { get; }
     
+    public LightningBolt()
+    {
+        Name = "Lightning Bolt";
+    }
+    
     public int AttackValue
     {
         get
@@ -19,5 +24,7 @@ public class LightningBolt: ISpell, IspellLibro
             return 0;
         }
     }
+    
+    
     
 }

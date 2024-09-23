@@ -20,4 +20,9 @@ public class Buff: ISpell,IspellLibro
             return 70;
         }
     }
+    
+    public Buff()
+    {
+        Name = "Hechizo Buffeador";
+    }
 }
