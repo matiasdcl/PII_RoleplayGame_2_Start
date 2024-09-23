@@ -21,13 +21,13 @@ public class Staff: IItem, IDefenseItem, IAttackItem
     public int DefenseValue
     {
         get { return this.defenseValue; }
-        set { this.defenseValue = value; }
+        private set { this.defenseValue = value; }
     }
     
     public int AttackValue
     {
         get { return this.attackValue; }
-        set { this.attackValue = value; }
+        private set { this.attackValue = value; }
     }
 
     public Staff(string name)
