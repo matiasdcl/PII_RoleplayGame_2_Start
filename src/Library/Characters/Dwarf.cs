@@ -2,26 +2,47 @@ namespace Ucu.Poo.RoleplayGame;
 
 public class Dwarf: ICharacter
 {
-    private int health = 100;
+    private string name;
+    private int health;
+    private int attackValue;
+    private int defenseValue;
+    private List<IItem> items;
+    private bool usesMagic;
 
     public Dwarf(string name)
     {
-        this.Name = name;
+        Name = name;
+        usesMagic = false;
+        attackValue = 12;
+        defenseValue = 0;
+        health = 100;
+        items = new List<IItem>();//Dwarf se inicializa con un hacha, un escudo y un casco
+        IItem axe = new Axe("Hacha predeterminada");
+        IItem shield = new Shield("Escudo predeterminado");
+        IItem helmet = new Helmet("Casco predeterminado");
+        this.EquipItem(axe);
+        this.EquipItem(shield);
+        this.EquipItem(helmet);
+        
     }
 
-    public string Name { get; set; }
+    public string Name
+    {
+        get { return this.name;}
+        private set { name = value; }
+    }
 
-    public Axe Axe { get; set; }
-
-    public Shield Shield { get; set; }
-
-    public Helmet Helmet { get; set; }
-
+    public bool UsesMagic
+    {
+        get { return this.usesMagic; }
+        private set { usesMagic = value; }
+    }
+    
     public int AttackValue
     {
         get
         {
-            return Axe.AttackValue;
+            return this.attackValue;
         }
     }
 
@@ -29,7 +50,7 @@ public class Dwarf: ICharacter
     {
         get
         {
-            return Shield.DefenseValue + Helmet.DefenseValue;
+            return this.defenseValue;
         }
     }
 
@@ -45,16 +66,89 @@ public class Dwarf: ICharacter
         }
     }
 
-    public void ReceiveAttack(int power)
+    public int GetHealth()
     {
-        if (this.DefenseValue < power)
+        return this.Health;
+    }
+
+    public List<IItem> Items
+    {
+        get { return this.items; }
+        private set { this.items = value; }
+    }
+
+    public void EquipItem(IItem item)
+    {
+        if (item.Magic())
         {
-            this.Health -= power - this.DefenseValue;
+            if (!this.usesMagic)
+            {
+                Console.WriteLine($"{this.name} no puede usar items mágicos");
+            }
+            else
+            {
+                this.items.Add(item);
+                if (item is IAttackItem)
+                {
+                    this.attackValue += item.AttackValue();
+                }
+                if (item is IDefenseItem)
+                {
+                    this.defenseValue += item.DefenseValue();
+                }
+            }
         }
+        else
+        {
+            this.items.Add(item);
+            if (item is IAttackItem)
+            {
+                this.attackValue += item.AttackValue();
+            }
+            if (item is IDefenseItem)
+            {
+                this.defenseValue += item.DefenseValue();
+            }
+        }
+    }
+    
+    public void UnEquipItem(string ItemName)
+    {
+        foreach (IItem thisItem in this.items.ToList())
+        {
+            if (thisItem.Name == ItemName )
+            {
+                this.items.Remove(thisItem);
+                if (thisItem is IAttackItem)
+                {
+                    this.attackValue -= thisItem.AttackValue();
+                }
+                if (thisItem is IDefenseItem)
+                {
+                    this.defenseValue -= thisItem.DefenseValue();
+                }
+            }
+            else
+            {
+                Console.WriteLine($"{this.name} no tiene ese item.");
+            }    
+            
+        }
+                
+    }
+    
+    public void Attack(ICharacter target)
+    {
+        target.TakeDamage(this.attackValue);
+    }
+
+    public void TakeDamage(int attack)
+    {
+        this.Health -= attack - this.DefenseValue;
     }
 
     public void Cure()
     {
-        this.Health = 100;
+        health = 100;
     }
 }
