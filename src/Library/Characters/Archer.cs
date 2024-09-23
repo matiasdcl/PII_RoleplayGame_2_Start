@@ -137,12 +137,7 @@ public class Archer: ICharacter
     
     public void Attack(ICharacter target)
     {
-        target.TakeDamage(this.attackValue);
-    }
-
-    public void TakeDamage(int attack)
-    {
-        this.Health -= attack - this.DefenseValue;
+        target.Health -= this.AttackValue;
     }
 
     public void Cure()
