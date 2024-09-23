@@ -60,7 +60,7 @@ public class KnightTest
         Assert.That(caballero.Items.Count, Is.EqualTo(0));
         
         caballero.EquipItem(escudo);
-        caballero.UnEquipItem(escudo);
+        caballero.UnEquipItem("Escudo");
         Assert.That(!caballero.Items.Contains(escudo));
     }
 
@@ -69,15 +69,15 @@ public class KnightTest
     {
         caballero.EquipItem(baston);
         
-        caballero.UnEquipItem(escudo);
-        Assert.That(caballero.DefenseValue,Is.EqualTo(100));
+        caballero.UnEquipItem("Escudo");
+        Assert.That(caballero.DefenseValue,Is.EqualTo(125));
         
-        caballero.UnEquipItem(arco);
+        caballero.UnEquipItem("Espada predeterminada");
         Assert.That(caballero.AttackValue,Is.EqualTo(108));
         
         caballero.UnEquipItem("Baston");
         Assert.That(caballero.AttackValue,Is.EqualTo(8));
-        Assert.That(caballero.DefenseValue,Is.EqualTo(0));
+        Assert.That(caballero.DefenseValue,Is.EqualTo(25));
     }
 
     [Test]
@@ -85,12 +85,11 @@ public class KnightTest
     {
         Wizard mago = new Wizard("Mago");
         caballero.Attack(mago);
-        Assert.That(mago.Health, Is.EqualTo(87));
+        Assert.That(mago.Health, Is.EqualTo(67));
         
-        caballero.EquipItem(arco);
         mago.EquipItem(escudo);
         caballero.Attack(mago);
-        Assert.That(mago.Health, Is.EqualTo(78));
+        Assert.That(mago.Health, Is.EqualTo(53));
         
         caballero.EquipItem(baston);
         caballero.Attack(mago);
@@ -100,18 +99,18 @@ public class KnightTest
     [Test]
     public void TestCure()
     {
-        caballero.Health = 0;
+        caballero.TakeDamage(1000);
         caballero.Cure();
         Assert.That(caballero.Health, Is.EqualTo(100));
     }
     
     [Test]
-    public void TestNegativeHealth()
+    public void TestTakeDamage()
     {
         caballero.TakeDamage(1000);
         Assert.That(caballero.Health, Is.EqualTo(0));
         
-        caballero.TakeDamage(132);
+        caballero.TakeDamage(134);
         Assert.That(caballero.Health, Is.EqualTo(0));
     }
 }

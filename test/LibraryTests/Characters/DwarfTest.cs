@@ -96,7 +96,7 @@ public class DwarfTest
     [Test]
     public void TestCure()
     {
-        enano.Health = 0;
+        enano.TakeDamage(1000);
         enano.Cure();
         Assert.That(enano.Health, Is.EqualTo(100));
     }

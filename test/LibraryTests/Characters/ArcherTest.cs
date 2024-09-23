@@ -54,10 +54,10 @@ public class ArcherTest
         Assert.That(arquero.Items.Count, Is.EqualTo(1));
         
         arquero.UnEquipItem("Arco predeterminado");
-        Assert.That(arquero.Items.Count, Is.EqualTo(1));
+        Assert.That(arquero.Items.Count, Is.EqualTo(0));
         
         arquero.EquipItem(escudo);
-        arquero.UnEquipItem(escudo);
+        arquero.UnEquipItem("Escudo");
         Assert.That(!arquero.Items.Contains(escudo));
     }
 
@@ -97,13 +97,13 @@ public class ArcherTest
     [Test]
     public void TestCure()
     {
-        arquero.Health = 0;
+        arquero.TakeDamage(1000);
         arquero.Cure();
         Assert.That(arquero.Health, Is.EqualTo(100));
     }
     
     [Test]
-    public void TestNegativeHealth()
+    public void TestTakeDamage()
     {
         arquero.TakeDamage(1000);
         Assert.That(arquero.Health, Is.EqualTo(0));

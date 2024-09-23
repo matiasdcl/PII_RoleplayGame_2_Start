@@ -16,27 +16,22 @@ public class WizardTest
     public void SetUp()
     {
         mago = new Wizard("Mago");
-        escudo = new Shield();
-        arco = new Bow();
-        baston = new Staff();
+        escudo = new Shield("Escudo");
+        arco = new Bow("Arco");
+        baston = new Staff("Baston");
     }
     
-    [Test]
-    public void TestNegativeHealth()
-    {
-        mago.Health = -50;
-        Assert.That(mago.Health, Is.EqualTo(0));
-    }
+    
 
     [Test]
     public void TestEquipItem()
     {
         mago.EquipItem(escudo);
-        Assert.That(mago.Items.Count, Is.EqualTo(1));
+        Assert.That(mago.Items.Count, Is.EqualTo(3));
         Assert.That(mago.Items.Contains(escudo));
         
         mago.EquipItem(arco);
-        Assert.That(mago.Items.Count, Is.EqualTo(2));
+        Assert.That(mago.Items.Count, Is.EqualTo(4));
         Assert.That(mago.Items.Contains(arco));
     }
     
@@ -44,45 +39,41 @@ public class WizardTest
     public void TestEquipItemStats()
     {
         mago.EquipItem(escudo);
-        Assert.That(mago.DefenseValue,Is.EqualTo(14));
+        Assert.That(mago.DefenseValue,Is.EqualTo(114));
         
         mago.EquipItem(arco);
-        Assert.That(mago.AttackValue,Is.EqualTo(23));
+        Assert.That(mago.AttackValue,Is.EqualTo(123));
         
         mago.EquipItem(baston);
-        Assert.That(mago.DefenseValue,Is.EqualTo(114));
-        Assert.That(mago.AttackValue,Is.EqualTo(123));
+        Assert.That(mago.DefenseValue,Is.EqualTo(214));
+        Assert.That(mago.AttackValue,Is.EqualTo(223));
     }
     
     [Test]
     public void TestUnEquipItem(){
+        mago.UnEquipItem("Baston predeterminado");
+        Assert.That(mago.Items.Count, Is.EqualTo(1));
+        
+        mago.UnEquipItem("Libro predeterminado");
+        Assert.That(mago.Items.Count, Is.EqualTo(0));
+        
         mago.EquipItem(escudo);
-        mago.EquipItem(arco);
-        
-        mago.UnEquipItem(escudo);
-        Assert.That(mago.Items.Count, Is.EqualTo(1));
-        
-        mago.UnEquipItem(arco);
-        Assert.That(mago.Items.Count, Is.EqualTo(1));
-
+        mago.UnEquipItem("Escudo");
         Assert.That(!mago.Items.Contains(escudo));
-        Assert.That(!mago.Items.Contains(arco));
     }
 
     [Test]
     public void TestUnEquipeItemStats()
     {
-        mago.EquipItem(escudo);
-        mago.EquipItem(arco);
         mago.EquipItem(baston);
         
-        mago.UnEquipItem(escudo);
+        mago.UnEquipItem("Baston predeterminado");
         Assert.That(mago.DefenseValue,Is.EqualTo(100));
         
-        mago.UnEquipItem(arco);
+        mago.UnEquipItem("Libro predeterminado");
         Assert.That(mago.AttackValue,Is.EqualTo(108));
         
-        mago.UnEquipItem(baston);
+        mago.UnEquipItem("Baston");
         Assert.That(mago.AttackValue,Is.EqualTo(8));
         Assert.That(mago.DefenseValue,Is.EqualTo(0));
     }
@@ -92,7 +83,7 @@ public class WizardTest
     {
         Dwarf enano = new Dwarf("Enano");
         mago.Attack(enano);
-        Assert.That(enano.Health, Is.EqualTo(92));
+        Assert.That(enano.Health, Is.EqualTo(0));
         
         mago.EquipItem(arco);
         enano.EquipItem(escudo);
@@ -107,8 +98,18 @@ public class WizardTest
     [Test]
     public void TestCure()
     {
-        mago.Health = 0;
+        mago.TakeDamage(1000);
         mago.Cure();
         Assert.That(mago.Health, Is.EqualTo(100));
+    }
+    
+    [Test]
+    public void TestNegativeHealth()
+    {
+        mago.TakeDamage(1000);
+        Assert.That(mago.Health, Is.EqualTo(0));
+        
+        mago.TakeDamage(132);
+        Assert.That(mago.Health, Is.EqualTo(0));
     }
 }
