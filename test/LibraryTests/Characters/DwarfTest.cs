@@ -16,27 +16,20 @@ public class DwarfTest
     public void SetUp()
     {
         enano = new Dwarf("Enano");
-        escudo = new Shield();
-        arco = new Bow();
-        baston = new Staff();
-    }
-    
-    [Test]
-    public void TestNegativeHealth()
-    {
-        enano.Health = -50;
-        Assert.That(enano.Health, Is.EqualTo(0));
+        escudo = new Shield("Escudo");
+        arco = new Bow("Arco");
+        baston = new Staff("Baston");
     }
     
     [Test]
     public void TestEquipItem()
     {
         enano.EquipItem(escudo);
-        Assert.That(enano.Items.Count, Is.EqualTo(1));
+        Assert.That(enano.Items.Count, Is.EqualTo(4));
         Assert.That(enano.Items.Contains(escudo));
         
         enano.EquipItem(arco);
-        Assert.That(enano.Items.Count, Is.EqualTo(2));
+        Assert.That(enano.Items.Count, Is.EqualTo(5));
         Assert.That(enano.Items.Contains(arco));
     }
     
@@ -44,47 +37,44 @@ public class DwarfTest
     public void TestEquipItemStats()
     {
         enano.EquipItem(escudo);
-        Assert.That(enano.DefenseValue,Is.EqualTo(14));
+        Assert.That(enano.DefenseValue,Is.EqualTo(46));
         
         enano.EquipItem(arco);
-        Assert.That(enano.AttackValue,Is.EqualTo(27));
+        Assert.That(enano.AttackValue,Is.EqualTo(52));
         
         enano.EquipItem(baston);
-        Assert.That(enano.DefenseValue,Is.EqualTo(114));
-        Assert.That(enano.AttackValue,Is.EqualTo(127));
+        Assert.That(enano.DefenseValue,Is.EqualTo(146));
+        Assert.That(enano.AttackValue,Is.EqualTo(152));
     }
     
     [Test]
     public void TestUnEquipItem(){
+        
+        enano.UnEquipItem("Hacha predeterminada");
+        Assert.That(enano.Items.Count, Is.EqualTo(2));
+        
+        enano.UnEquipItem("Escudo predeterminado");
+        Assert.That(enano.Items.Count, Is.EqualTo(1));
+        
         enano.EquipItem(escudo);
-        enano.EquipItem(arco);
-        
-        enano.UnEquipItem(escudo);
-        Assert.That(enano.Items.Count, Is.EqualTo(1));
-        
-        enano.UnEquipItem(arco);
-        Assert.That(enano.Items.Count, Is.EqualTo(1));
-
+        enano.UnEquipItem("Escudo");
         Assert.That(!enano.Items.Contains(escudo));
-        Assert.That(!enano.Items.Contains(arco));
     }
 
     [Test]
     public void TestUnEquipeItemStats()
     {
-        enano.EquipItem(escudo);
-        enano.EquipItem(arco);
         enano.EquipItem(baston);
         
-        enano.UnEquipItem(escudo);
-        Assert.That(enano.DefenseValue,Is.EqualTo(100));
+        enano.UnEquipItem("Escudo predeterminado");
+        Assert.That(enano.DefenseValue,Is.EqualTo(118));
         
-        enano.UnEquipItem(arco);
+        enano.UnEquipItem("Hacha predeterminada");
         Assert.That(enano.AttackValue,Is.EqualTo(112));
         
-        enano.UnEquipItem(baston);
+        enano.UnEquipItem("Baston");
         Assert.That(enano.AttackValue,Is.EqualTo(12));
-        Assert.That(enano.DefenseValue,Is.EqualTo(0));
+        Assert.That(enano.DefenseValue,Is.EqualTo(18));
     }
 
     [Test]
@@ -92,12 +82,11 @@ public class DwarfTest
     {
         Wizard mago = new Wizard("Mago");
         enano.Attack(mago);
-        Assert.That(mago.Health, Is.EqualTo(83));
+        Assert.That(mago.Health, Is.EqualTo(58));
         
-        enano.EquipItem(arco);
         mago.EquipItem(escudo);
         enano.Attack(mago);
-        Assert.That(mago.Health, Is.EqualTo(70));
+        Assert.That(mago.Health, Is.EqualTo(35));
         
         enano.EquipItem(baston);
         enano.Attack(mago);
@@ -110,5 +99,15 @@ public class DwarfTest
         enano.Health = 0;
         enano.Cure();
         Assert.That(enano.Health, Is.EqualTo(100));
+    }
+    
+    [Test]
+    public void TestNegativeHealth()
+    {
+        enano.TakeDamage(1000);
+        Assert.That(enano.Health, Is.EqualTo(0));
+        
+        enano.TakeDamage(132);
+        Assert.That(enano.Health, Is.EqualTo(0));
     }
 }

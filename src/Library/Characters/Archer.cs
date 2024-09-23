@@ -21,9 +21,8 @@ public class Archer: ICharacter
         IItem helmet = new Helmet();
         this.EquipItem(bow);
         this.EquipItem(helmet);
-        
     }
-
+    
     public string Name
     {
         get { return this.name;}
@@ -108,7 +107,7 @@ public class Archer: ICharacter
     {
         target.Health -= this.AttackValue - target.DefenseValue;
     }
-
+    
     public void Cure()
     {
         health = 100;
