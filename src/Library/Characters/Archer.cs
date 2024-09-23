@@ -17,8 +17,8 @@ public class Archer: ICharacter
         defenseValue = 0;
         health = 100;
         items = new List<IItem>(); //Archer se inicializa con un arco y un casco
-        IItem bow = new Bow();
-        IItem helmet = new Helmet();
+        IItem bow = new Bow("Arco predeterminado");
+        IItem helmet = new Helmet("Casco predeterminado");
         this.EquipItem(bow);
         this.EquipItem(helmet);
         
@@ -27,13 +27,13 @@ public class Archer: ICharacter
     public string Name
     {
         get { return this.name;}
-        set { name = value; }
+        private set { name = value; }
     }
 
     public bool UsesMagic
     {
         get { return this.usesMagic; }
-        set { usesMagic = value; }
+        private set { usesMagic = value; }
     }
     
     public int AttackValue
@@ -58,7 +58,7 @@ public class Archer: ICharacter
         {
             return this.health;
         }
-        set
+        private set
         {
             this.health = value < 0 ? 0 : value;
         }
@@ -72,46 +72,77 @@ public class Archer: ICharacter
     public List<IItem> Items
     {
         get { return this.items; }
-        set { this.items = value; }
+        private set { this.items = value; }
     }
 
     public void EquipItem(IItem item)
     {
-        this.items.Add(item);
-        if (item is IAttackItem)
+        if (item.Magic())
         {
-            this.attackValue += item.GetAttackValue();
-        }
-        if (item is IDefenseItem)
-        {
-            this.defenseValue += item.GetDefenseValue();
-        }
-    }
-    
-    public void UnEquipItem(IItem item)
-    {
-        if (this.items.Contains(item))
-        {
-            this.items.Remove(item);
-            if (item is IAttackItem)
+            if (!this.usesMagic)
             {
-                this.attackValue -= item.GetAttackValue();
+                Console.WriteLine($"{this.name} no puede usar items mágicos");
             }
-            if (item is IDefenseItem)
+            else
             {
-                this.defenseValue -= item.GetDefenseValue();
+                this.items.Add(item);
+                if (item is IAttackItem)
+                {
+                    this.attackValue += item.AttackValue();
+                }
+                if (item is IDefenseItem)
+                {
+                    this.defenseValue += item.DefenseValue();
+                }
             }
         }
         else
         {
-            Console.WriteLine($"{this.name} no tiene ese item.");
+            this.items.Add(item);
+            if (item is IAttackItem)
+            {
+                this.attackValue += item.AttackValue();
+            }
+            if (item is IDefenseItem)
+            {
+                this.defenseValue += item.DefenseValue();
+            }
+        }
+    }
+    
+    public void UnEquipItem(string ItemName)
+    {
+        foreach (IItem thisItem in this.items.ToList())
+        {
+            if (thisItem.Name == ItemName )
+            {
+                this.items.Remove(thisItem);
+                if (thisItem is IAttackItem)
+                {
+                    this.attackValue -= thisItem.AttackValue();
+                }
+                if (thisItem is IDefenseItem)
+                {
+                    this.defenseValue -= thisItem.DefenseValue();
+                }
+            }
+            else
+            {
+                Console.WriteLine($"{this.name} no tiene ese item.");
+            }    
+            
         }
                 
     }
     
     public void Attack(ICharacter target)
     {
-        target.Health -= this.AttackValue;
+        target.TakeDamage(this.attackValue);
+    }
+
+    public void TakeDamage(int attack)
+    {
+        this.Health -= attack - this.DefenseValue;
     }
 
     public void Cure()
