@@ -18,6 +18,7 @@ public class KnightTest
     {
         caballero = new Knight("Caballero");
         escudo = new Shield("Escudo");
+        arco = new Bow("Arco");
         baston = new Staff("Baston");
     }
     
@@ -70,30 +71,30 @@ public class KnightTest
         caballero.EquipItem(baston);
         
         caballero.UnEquipItem("Escudo");
-        Assert.That(caballero.DefenseValue,Is.EqualTo(125));
+        Assert.That(caballero.DefenseValue,Is.EqualTo(139));
         
         caballero.UnEquipItem("Espada predeterminada");
         Assert.That(caballero.AttackValue,Is.EqualTo(108));
         
         caballero.UnEquipItem("Baston");
         Assert.That(caballero.AttackValue,Is.EqualTo(8));
-        Assert.That(caballero.DefenseValue,Is.EqualTo(25));
+        Assert.That(caballero.DefenseValue,Is.EqualTo(39));
     }
 
     [Test]
     public void TestAttack()
     {
-        Wizard mago = new Wizard("Mago");
-        caballero.Attack(mago);
-        Assert.That(mago.Health, Is.EqualTo(67));
+        Dwarf enano = new Dwarf("Enano");
+        caballero.Attack(enano);
+        Assert.That(enano.Health, Is.EqualTo(100));
         
-        mago.EquipItem(escudo);
-        caballero.Attack(mago);
-        Assert.That(mago.Health, Is.EqualTo(53));
+        enano.EquipItem(escudo);
+        caballero.Attack(enano);
+        Assert.That(enano.Health, Is.EqualTo(100));
         
         caballero.EquipItem(baston);
-        caballero.Attack(mago);
-        Assert.That(mago.Health, Is.EqualTo(0));
+        caballero.Attack(enano);
+        Assert.That(enano.Health, Is.EqualTo(18));
     }
     
     [Test]

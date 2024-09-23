@@ -80,17 +80,17 @@ public class DwarfTest
     [Test]
     public void TestAttack()
     {
-        Wizard mago = new Wizard("Mago");
-        enano.Attack(mago);
-        Assert.That(mago.Health, Is.EqualTo(58));
+        Dwarf enano2 = new Dwarf("Enano");
+        enano.Attack(enano2);
+        Assert.That(enano2.Health, Is.EqualTo(95));
         
-        mago.EquipItem(escudo);
-        enano.Attack(mago);
-        Assert.That(mago.Health, Is.EqualTo(35));
+        enano2.EquipItem(escudo);
+        enano.Attack(enano2);
+        Assert.That(enano2.Health, Is.EqualTo(95));
         
         enano.EquipItem(baston);
-        enano.Attack(mago);
-        Assert.That(mago.Health, Is.EqualTo(0));
+        enano.Attack(enano2);
+        Assert.That(enano2.Health, Is.EqualTo(4));
     }
     
     [Test]

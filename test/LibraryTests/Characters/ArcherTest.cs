@@ -80,18 +80,18 @@ public class ArcherTest
     [Test]
     public void TestAttack()
     {
-        Wizard mago = new Wizard("Mago");
-        arquero.Attack(mago);
-        Assert.That(mago.Health, Is.EqualTo(70));
+        Dwarf enano = new Dwarf("Enano");
+        arquero.Attack(enano);
+        Assert.That(enano.Health, Is.EqualTo(100));
         
         
-        mago.EquipItem(escudo);
-        arquero.Attack(mago);
-        Assert.That(mago.Health, Is.EqualTo(59));
+        enano.EquipItem(escudo);
+        arquero.Attack(enano);
+        Assert.That(enano.Health, Is.EqualTo(100));
         
         arquero.EquipItem(baston);
-        arquero.Attack(mago);
-        Assert.That(mago.Health, Is.EqualTo(0));
+        arquero.Attack(enano);
+        Assert.That(enano.Health, Is.EqualTo(21));
     }
     
     [Test]

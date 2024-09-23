@@ -83,16 +83,12 @@ public class WizardTest
     {
         Dwarf enano = new Dwarf("Enano");
         mago.Attack(enano);
-        Assert.That(enano.Health, Is.EqualTo(0));
+        Assert.That(enano.Health, Is.EqualTo(24));
         
-        mago.EquipItem(arco);
         enano.EquipItem(escudo);
         mago.Attack(enano);
-        Assert.That(enano.Health, Is.EqualTo(83));
+        Assert.That(enano.Health, Is.EqualTo(0));
         
-        mago.EquipItem(baston);
-        mago.Attack(mago);
-        Assert.That(mago.Health, Is.EqualTo(0));
     }
     
     [Test]

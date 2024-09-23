@@ -1,5 +1,5 @@
 ﻿using Ucu.Poo.RoleplayGame;
-
+Console.WriteLine("hola mundo");
 // SpellsBook book = new SpellsBook();
 // book.Spells = new Spell[]{ new Spell() };
 //
