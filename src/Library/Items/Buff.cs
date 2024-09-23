@@ -1,7 +1,10 @@
 namespace Ucu.Poo.RoleplayGame;
 
-public class Spell: ISpell
+public class Buff: ISpell,IspellLibro
 {
+    
+    public string Name { get; }
+    
     public int AttackValue
     {
         get

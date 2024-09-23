@@ -79,7 +79,7 @@ public class Knight: ICharacter
 
     public void EquipItem(IItem item)
     {
-        if (item.Magic())
+        if (item.Magic)
         {
             if (!this.usesMagic)
             {
@@ -88,26 +88,26 @@ public class Knight: ICharacter
             else
             {
                 this.items.Add(item);
-                if (item is IAttackItem)
+                if (item is IAttackItem attackItem)
                 {
-                    this.attackValue += item.AttackValue();
+                    this.attackValue += attackItem.AttackValue;
                 }
-                if (item is IDefenseItem)
+                if (item is IDefenseItem defenseItem)
                 {
-                    this.defenseValue += item.DefenseValue();
+                    this.defenseValue += defenseItem.DefenseValue;
                 }
             }
         }
         else
         {
             this.items.Add(item);
-            if (item is IAttackItem)
+            if (item is IAttackItem attackItem)
             {
-                this.attackValue += item.AttackValue();
+                this.attackValue += attackItem.AttackValue;
             }
-            if (item is IDefenseItem)
+            if (item is IDefenseItem defenseItem)
             {
-                this.defenseValue += item.DefenseValue();
+                this.defenseValue += defenseItem.DefenseValue;
             }
         }
     }
@@ -119,13 +119,13 @@ public class Knight: ICharacter
             if (thisItem.Name == ItemName )
             {
                 this.items.Remove(thisItem);
-                if (thisItem is IAttackItem)
+                if (thisItem is IAttackItem attackItem)
                 {
-                    this.attackValue -= thisItem.AttackValue();
+                    this.attackValue -= attackItem.AttackValue;
                 }
-                if (thisItem is IDefenseItem)
+                if (thisItem is IDefenseItem defenseItem)
                 {
-                    this.defenseValue -= thisItem.DefenseValue();
+                    this.defenseValue -= defenseItem.DefenseValue;
                 }
             }
             else
@@ -144,7 +144,11 @@ public class Knight: ICharacter
 
     public void TakeDamage(int attack)
     {
-        this.Health -= attack - this.DefenseValue;
+        int damage = attack - this.defenseValue;
+        if (damage > 0)
+        {
+            this.Health -= damage;
+        }
     }
 
     public void Cure()
