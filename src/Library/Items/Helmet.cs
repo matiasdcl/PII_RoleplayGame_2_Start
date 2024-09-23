@@ -20,7 +20,7 @@ public class Helmet: IItem, IDefenseItem
     public int DefenseValue
     {
         get { return this.defenseValue; }
-        set { this.defenseValue = value; }
+        private set { this.defenseValue = value; }
     }
 
     public Helmet(string name)

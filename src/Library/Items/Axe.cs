@@ -20,7 +20,7 @@ public class Axe: IItem, IAttackItem
     public int AttackValue
     {
         get { return this.attackValue; }
-        set { this.attackValue = value; }
+        private set { this.attackValue = value; }
     }
 
     public Axe(string name)

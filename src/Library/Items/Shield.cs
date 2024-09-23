@@ -20,7 +20,7 @@ public class Shield: IItem, IDefenseItem
     public int DefenseValue
     {
         get { return this.defenseValue; }
-        set { this.defenseValue = value; }
+        private set { this.defenseValue = value; }
     }
 
     public Shield(string name)
