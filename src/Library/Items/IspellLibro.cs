@@ -1,6 +1,8 @@
 namespace Ucu.Poo.RoleplayGame;
 
-public interface IAttackSpell
+public interface IspellLibro
 {
     int AttackValue { get; }
+    int DefenseValue { get; }
+    
 }

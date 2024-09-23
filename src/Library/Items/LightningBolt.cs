@@ -1,6 +1,6 @@
 namespace Ucu.Poo.RoleplayGame;
 
-public class LightningBolt: ISpell,IAttackSpell
+public class LightningBolt: ISpell, IspellLibro
 {
     public string Name { get; }
     
@@ -9,6 +9,14 @@ public class LightningBolt: ISpell,IAttackSpell
         get
         {
             return 100;
+        }
+    }
+    
+    public int DefenseValue
+    {
+        get
+        {
+            return 0;
         }
     }
     
