@@ -2,22 +2,39 @@ namespace Ucu.Poo.RoleplayGame;
 
 public class Staff: IItem, IDefenseItem, IAttackItem
 {
-    public string Name{get; set;}
-    public bool Magic{get ; set;}
-    public int AttackValue 
+    private string name;
+    private int defenseValue;
+    private int attackValue;
+    private bool magic;
+    
+    public string Name
     {
-        get
-        {
-            return 100;
-        } 
+        get { return this.name; }
+        private set { name = value; }
+    }
+    public bool Magic
+    {
+        get { return this.magic; }
+        private set { magic = value; }
     }
 
     public int DefenseValue
     {
-        get
-        {
-            return 100;
-        }
-        set{}
+        get { return this.defenseValue; }
+        set { this.defenseValue = value; }
+    }
+    
+    public int AttackValue
+    {
+        get { return this.attackValue; }
+        set { this.attackValue = value; }
+    }
+
+    public Staff(string name)
+    {
+        Name = name;
+        DefenseValue = 100;
+        AttackValue = 100;
+        Magic = false;
     }
 }

@@ -9,7 +9,7 @@ public interface ICharacter
     List<IItem> Items { get; }
     bool UsesMagic { get; }
     void EquipItem(IItem item);
-    void UnEquipItem(IItem item);
+    void UnEquipItem(string itemName);
     void Attack(ICharacter target);
     void TakeDamage(int attack);
     void Cure();
