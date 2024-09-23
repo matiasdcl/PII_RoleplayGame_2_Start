@@ -77,7 +77,7 @@ public class Wizard: ICharacter
 
     public void EquipItem(IItem item)
     {
-        if (item.Magic())
+        if (item.Magic)
         {
             if (!this.usesMagic)
             {
